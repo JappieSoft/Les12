@@ -1,15 +1,9 @@
-.data-content {
-    line-height: 1.5;
-    max-width: 800px;
-    text-align: center;
-}
-
-.post-link {
+.list-link {
     text-decoration: none;
     color: var(--color-white);
 }
 
-.post-link:hover {
+.list-link:hover {
     text-decoration: none;
     color: var(--color-dutch);
 }
