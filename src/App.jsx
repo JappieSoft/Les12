@@ -11,14 +11,21 @@ import NotFound from "./pages/notfound/NotFound.jsx";
 function App() {
     return (
         <>
-            <Navigation/>
-            <Routes>
-                <Route path="/" element={<Home/>}/>
-                <Route path="/nieuw-blog" element={<NewBlog/>}/>
-                <Route path="/overzicht" element={<Overview/>}/>
-                <Route path="/post/:id" element={<Post/>}/>
-                <Route path="*" element={<NotFound/>}/>
-            </Routes>
+            <header>
+                <Navigation/>
+            </header>
+            <main>
+                <Routes>
+                    <Route path="/" element={<Home/>}/>
+                    <Route path="/nieuw-blog" element={<NewBlog/>}/>
+                    <Route path="/overzicht" element={<Overview/>}/>
+                    <Route path="/post/:id" element={<Post/>}/>
+                    <Route path="*" element={<NotFound/>}/>
+                </Routes>
+            </main>
+            <footer>
+                <p>Temp designs by: JappieSoft</p>
+            </footer>
         </>
 
     )

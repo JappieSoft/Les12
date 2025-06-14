@@ -5,7 +5,8 @@ import logo from "../../assets/logo-medium.png";
 
 function Navigation() {
   return (
-    <nav className="nav-bar">
+
+  <nav className="nav-bar">
       <div className="nav-container">
         <img className="nav-img" src={logo} alt="Blogventure Logo"/>
         <ul className="nav-list">
