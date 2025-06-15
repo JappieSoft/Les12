@@ -4,11 +4,7 @@ function readTimer(blog) {
     let calculated = blog.split(" ").length / amountWords / readSpeed;
     let finalNumber = Math.round(calculated);
 
-    console.log(`blog =  ${blog}`);
-    console.log(`blog split length = ${blog.split(" ").length}`);
-    console.log(`calculated = ${finalNumber}`);
-
-    return finalNumber > 0 ? 1 : finalNumber;
+    return finalNumber > 0 ? finalNumber : 1;
 }
 
 export default readTimer;

@@ -4,6 +4,10 @@ import {useEffect} from "react";
 import {timeStamp} from "../../helpers/dateConverter.js";
 import readTimer from "../../helpers/readTimer.js";
 
+/*temp text:
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus ducimus fugit illum impedit ipsam laborum minus nesciunt perspiciatis porro possimus praesentium quae quibusdam reprehenderit, suscipit tempore tenetur vitae. A beatae blanditiis commodi consequuntur delectus dolor doloremque dolorum eius eum excepturi fugiat, harum id itaque maxime molestiae nobis numquam placeat quidem, quis quisquam rem, repellendus sed tempore? Ab blanditiis consequuntur corporis debitis excepturi ipsam iure, laboriosam laudantium molestiae officia, perspiciatis praesentium qui quidem quod reiciendis soluta tempora temporibus vel voluptate, voluptatibus. Ad alias atque delectus dignissimos eligendi esse eum eveniet ex exercitationem id impedit iure laboriosam laborum libero magnam magni modi nam nemo, nisi numquam placeat provident quas qui quia, quod reiciendis repellat, rerum sed sint tempora tenetur unde voluptas voluptatibus. Aliquid commodi ex perspiciatis reiciendis ullam! Atque culpa, ducimus eaque iure molestias obcaecati odio rerum tempore? Autem consequuntur cumque dolor dolorem doloremque doloribus ea esse eveniet ex expedita impedit iste iusto maiores, molestiae nostrum officiis optio perferendis placeat possimus praesentium quia quod reiciendis rem repellat, similique soluta suscipit tempora. Aperiam dolor ex exercitationem, minima officiis quam voluptate! Accusantium cum earum fugit laborum quis quos recusandae suscipit. Aliquid, aspernatur atque autem consequatur consequuntur delectus dolorem eius eligendi harum hic ipsum libero mollitia officiis pariatur porro ratione, rem reprehenderit, similique vel velit veniam voluptate voluptatibus? Dolor, ea, inventore. Earum nulla provident vitae! Animi, cumque in itaque laborum neque numquam officia perferendis perspiciatis quaerat quidem sequi velit voluptas voluptatibus. Architecto debitis quisquam rem? Adipisci aperiam, aspernatur at consequatur culpa dolore, ea eveniet expedita fuga fugit id ipsam itaque labore, magni maxime minima natus nihil nulla odio pariatur possimus praesentium quasi quis ratione similique sunt totam vero? Beatae dolorem necessitatibus nemo saepe? Ab aliquam beatae consectetur consequuntur cumque doloribus excepturi illo, itaque laudantium maiores maxime necessitatibus nobis placeat quaerat quam quod rem reprehenderit repudiandae sit tenetur ullam ut vitae voluptatibus. Aspernatur, consequatur deserunt error esse et nam ullam. Asperiores culpa cupiditate deleniti deserunt dolorem fuga quaerat, quasi qui repellendus rerum sed tempora temporibus vel voluptatem, voluptates. Accusamus cupiditate deserunt, eaque eligendi enim est hic ipsam iure iusto officiis provident ratione saepe sint! Adipisci asperiores corporis id iure laboriosam magnam perferendis, perspiciatis repellendus tempora tempore veritatis vero. Adipisci aliquid asperiores assumenda beatae commodi consequuntur corporis culpa, cum debitis delectus deserunt dicta dolor dolore dolorum enim eos est fugit hic in incidunt ipsum labore laboriosam laudantium mollitia nam nihil nostrum, officia officiis omnis perspiciatis provident qui sed tempore totam ullam velit voluptates. Ab aliquid amet aperiam asperiores blanditiis corporis cum delectus dolore dolorem doloribus ducimus eius expedita harum id inventore magni nam natus, numquam quam quidem quod reiciendis repellat sint sunt vel veniam voluptatibus voluptatum. Aperiam autem ducimus eveniet ex expedita, incidunt magnam modi perferendis reprehenderit vero vitae voluptas? Accusantium alias aliquid architecto atque beatae corporis, culpa debitis delectus deleniti dolorum earum eligendi exercitationem fuga in libero magnam modi nihil odit, officiis omnis optio possimus provident qui ratione recusandae reiciendis repellat saepe sapiente sed sunt tempore tenetur veritatis, vero? Ad adipisci blanditiis culpa cum dolorum eaque esse, est ex id laboriosam magnam minus modi molestias mollitia necessitatibus obcaecati officia perspiciatis quae quasi repellat repudiandae temporibus ullam vero? Ad aliquam amet aspernatur aut cum dicta dolorum, eum expedita impedit, porro quibusdam quis repellendus voluptates. Accusantium aliquam architecto, atque consectetur consequuntur dolore doloribus ducimus eos facilis fugit in ipsa iure iusto minus neque nihil nisi nostrum obcaecati omnis perspiciatis possimus quaerat quia quod ratione recusandae soluta ut. Ab beatae dicta ea earum error ipsam maiores minus molestias nobis officia possimus quod recusandae sequi similique temporibus veritatis vero, voluptatibus. Culpa cum, cumque deserunt quaerat quo sunt ut voluptates voluptatum!
+    */
+
 
 function NewBlog() {
 
@@ -14,20 +18,17 @@ function NewBlog() {
         register("readTime");
         register("comments");
         register("shares");
+        }, [register]);
 
-        setValue("created", timeStamp());
-        setValue("readTime", 0);
-        setValue("comments", 0);
-        setValue("shares", 0);
-    }, [register, setValue]);
 
     const onSubmit = (data) => {
-        const readingTime = readTimer(data.content);
-        const updateReadTime = {...data, readTime: readingTime,
-        };
+        setValue("created", timeStamp());
+        setValue("readTime", readTimer(data.content));
+        setValue("comments", 0);
+        setValue("shares", 0);
         console.log(data);
-        console.log(`finalDate = ${updateReadTime}`);
     };
+
 
     return (
         <div className="page-container">
