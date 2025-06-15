@@ -8,7 +8,11 @@ function dateConverter(date) {
     };
 
     return newDate.toLocaleDateString("nl-NL", options);
+}
 
+export function timeStamp(){
+    let date = new Date();
+    return date.toISOString();
 }
 
 export default dateConverter;

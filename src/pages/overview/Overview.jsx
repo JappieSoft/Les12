@@ -1,6 +1,6 @@
 import "./Overview.css";
 import posts from "../../constants/data.json"
-import InfoCard from "../../components/infocard/InfoCard.jsx"
+import InfoCard from "../../components/Infocard/InfoCard.jsx"
 
 function Overview() {
     return (

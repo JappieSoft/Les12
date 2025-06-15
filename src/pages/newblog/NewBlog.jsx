@@ -1,67 +1,77 @@
 import "./NewBlog.css";
-import {useForm} from 'react-hook-form';
+import {useForm} from "react-hook-form";
+import {useEffect} from "react";
+import {timeStamp} from "../../helpers/dateConverter.js";
+import readTimer from "../../helpers/readTimer.js";
+
 
 function NewBlog() {
-    const {
-        register,
-        handleSubmit,
-        formState: {errors},
-    } = useForm();
+
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+
+    useEffect(() => {
+        register("created");
+        register("readTime");
+        register("comments");
+        register("shares");
+
+        setValue("created", timeStamp());
+        setValue("readTime", 0);
+        setValue("comments", 0);
+        setValue("shares", 0);
+    }, [register, setValue]);
 
     const onSubmit = (data) => {
+        const readingTime = readTimer(data.content);
+        const updateReadTime = {...data, readTime: readingTime,
+        };
         console.log(data);
+        console.log(`finalDate = ${updateReadTime}`);
     };
-
-    console.log(`errors ${errors}`);
 
     return (
         <div className="page-container">
-            <h1>Begin hier met het maken van jouw nieuwe blog-post!</h1>
+            <h2>Begin hier met het maken van jouw nieuwe blog-post!</h2>
 
-
-            <form onSubmit={() => handleSubmit(onSubmit)}>
-                <input {...register('firstName')} />
-                <input {...register('lastName', { required: true })} />
-                {errors.lastName && <p>Last name is required.</p>}
-                <input {...register('age', { pattern: /\d+/ })} />
-                {errors.age && <p>Please enter number for age.</p>}
-                <input type="submit" />
-            </form>
-
-
-            <form onSubmit={() => handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="form-control">
-                    <label>Email</label>
+                    <label>Titel</label>
                     <input
                         type="text"
-                        name="email"
-                        {...register("email", {
-                            required: "Email is required."
-                        })}
-                    />
-                    {errors.email && <p className="errorMsg">{errors.email.message}</p>}
+                        name="title"
+                        {...register("title",{ required: true })}/>
+                        {errors.title && <p className="errorMsg">{"Er is een titel nodig."}</p>}
                 </div>
                 <div className="form-control">
-                    <label>Password</label>
+                    <label>Ondertitel</label>
                     <input
-                        type="password"
-                        name="password"
-                        {...register("password", {
-                            required: true,
-                            })}
-                    />
-                    {errors.password?.type === "required" && (
-                        <p className="errorMsg">Password is required.</p>
-                    )}
-                    {errors.password?.type === "checkLength" && (
-                        <p className="errorMsg">
-                            Password should be at-least 6 characters.
-                        </p>
-                    )}
+                        type="text"
+                        name="subtitle"
+                        {...register("subtitle",{ required: true })}/>
+                        {errors.subtitle && <p className="errorMsg">{"Een ondertitel is nodig."}</p>}
+                    </div>
+                <div className="form-control">
+                    <label>Auteur</label>
+                    <input
+                        type="text"
+                        name="author"
+                        {...register("author", { required: true })}/>
+                        {errors.author && <p className="errorMsg">{"De naam van de auteur mag niet ontbreken."}</p>}
+                </div>
+                <div className="form-control">
+                    <label>Blogpost</label>
+                    <textarea
+                        name="content"
+                        minLength={300}
+                        maxLength={2000}
+                        rows={10}
+                        cols={40}
+                        {...register("content",{ required: true })}/>
+                        {errors.content && <p className="errorMsg">{"Een verhaal / tekst is nodig."}</p>}
                 </div>
                 <div className="form-control">
                     <label></label>
-                    <button type="submit">Login</button>
+                    <button type="submit">Create Blogpost</button>
                 </div>
             </form>
         </div>
@@ -70,3 +80,4 @@ function NewBlog() {
 }
 
 export default NewBlog;
+
