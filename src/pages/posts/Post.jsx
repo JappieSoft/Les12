@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import posts from "../../constants/data.json"
 import dateConverter from "../../helpers/dateConverter.js";
+import {ArrowCircleLeftIcon} from "@phosphor-icons/react";
 
 function Post() {
     const { id } = useParams();
@@ -15,7 +16,7 @@ function Post() {
             <p>Geschreven door {data.author} op {dateConverter(data.created)}</p>
             <p className="data-content">{data.content}</p>
             <p>{data.comments} reacties - {data.shares} keer gedeeld</p>
-            <Link className="post-link" to="/overzicht">Terug naar de overzichtspagina</Link>
+                <Link className="post-link" to="/overzicht"><ArrowCircleLeftIcon size={26} />Terug naar de overzichtspagina</Link>
         </div>
 
     );
