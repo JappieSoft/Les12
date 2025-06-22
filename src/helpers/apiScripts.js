@@ -1,6 +1,7 @@
 import axios from "axios";
-const apiLink = "https://novi-backend-api-wgsgz.ondigitalocean.app/api/blogposts"
-const apiHeaders = "novi-education-project-id: e7334bb5-32f1-462b-a9d0-349bb821c0ba"
+
+const apiLink = "https://novi-backend-api-wgsgz.ondigitalocean.app/api/blogposts";
+const apiHeaders = {"novi-education-project-id": "e7334bb5-32f1-462b-a9d0-349bb821c0ba"};
 
 /*---api pull 1.1 ------------------------------------------------------------------------------------------------------*/
 async function pullHelperApi(setError, setApiData, toggleLoading) {
@@ -9,7 +10,7 @@ async function pullHelperApi(setError, setApiData, toggleLoading) {
 
     try {
         const response = await axios.get(apiLink, {
-            headers: apiHeaders ,
+            headers: apiHeaders,
         });
         console.log(response);
         setApiData(response.data);
@@ -22,78 +23,61 @@ async function pullHelperApi(setError, setApiData, toggleLoading) {
 }
 
 
-/*---api pull 1.2 ------------------------------------------------------------------------------------------------------*/
+/*---api pull id 1.2 ------------------------------------------------------------------------------------------------------*/
 export async function pullIdNumber(requestId, setError, setApiData, toggleLoading) {
     setError("");
     toggleLoading(true);
-    console.log(`request id = ${requestId}`);
 
     try {
         const response = await axios.get(apiLink, {
-            headers: apiHeaders ,
+            headers: apiHeaders,
             params: {"id": requestId}
         });
         console.log(response);
         setApiData(response.data);
     } catch (event) {
         console.error(event);
-        setError("Unable to retrieve article");
+        setError("Het artikel is helaas niet gevonden.");
     } finally {
         toggleLoading(false);
     }
 }
 
-/*---api pull 1.3 ------------------------------------------------------------------------------------------------------*/
-export async function pushNumberOne() {
-    const [count, setCount] = useState(0)
-    const [apiData, setApiData] = useState("");
-    const [error, setError] = useState("");
-    const [loading, toggleLoading] = useState(false);
-    const dataPush = {
-        "title": "Wat gebruiker heeft ingevuld",
-        "subtitle": "Wat gebruiker heeft ingevuld",
-        "content": "Wat gebruiker heeft ingevuld, in dit geval minder dan 100 woorden",
-        "author": "Voornaam achternaam",
-        "created": "2023-09-21T09:30:00Z",
-        "readTime": 1,
-        "comments": 0,
-        "shares": 0
-    };
-
-
+/*---api push 1.3 ------------------------------------------------------------------------------------------------------*/
+export async function pushNumberOne(dataPush, setError, setApiData, toggleLoading) {
     setError("");
     toggleLoading(true);
-    setCount((count) => count + 1)
+
+    console.log(dataPush);
 
     try {
         const response = await axios.post(
-            "https://novi-backend-api-wgsgz.ondigitalocean.app/api/blogposts",
+            apiLink,
             {
-                title: "Wat gebruiker heeft ingevuld",
-                subtitle: "Wat gebruiker heeft ingevuld",
-                content: "Wat gebruiker heeft ingevuld, in dit geval minder dan 100 woorden",
-                created: "2023-09-21T09:30:00Z",
-                author: "Voornaam achternaam",
-                readTime: 1,
-                comments: 0,
-                shares: 0,
+                title: dataPush.title,
+                subtitle: dataPush.subtitle,
+                content: dataPush.content,
+                created: dataPush.created,
+                author: dataPush.author,
+                readTime: dataPush.readTime,
+                comments: dataPush.comments,
+                shares: dataPush.shares,
             },
             {
-                headers: {
-                    "novi-education-project-id": "e7334bb5-32f1-462b-a9d0-349bb821c0ba"
-                }
+                headers: apiHeaders,
             }
         );
+        setApiData(response.data);
         console.log(response);
     } catch (event) {
         console.error(event);
-        setError("Post Error");
+        setError("Er is iets fout gegaan met het versturen van de blogpost.");
     } finally {
         toggleLoading(false);
     }
 }
 
-/*---api pull 1.5 ------------------------------------------------------------------------------------------------------*/
+/*---api delete 1.5 ------------------------------------------------------------------------------------------------------*/
 export async function deleteNumberOne() {
     const [count, setCount] = useState(0)
     const [apiData, setApiData] = useState("");
@@ -133,7 +117,7 @@ export async function deleteNumberOne() {
     }
 }
 
-/*---api pull 1.6 ------------------------------------------------------------------------------------------------------*/
+/*---api put 1.6 ------------------------------------------------------------------------------------------------------*/
 export async function putNumberOne() {
     const [count, setCount] = useState(0)
     const [apiData, setApiData] = useState("");
@@ -184,7 +168,7 @@ export async function putNumberOne() {
     }
 }
 
-/*---api pull 1.7 ------------------------------------------------------------------------------------------------------*/
+/*---api patch 1.7 ------------------------------------------------------------------------------------------------------*/
 export async function patchNumberOne() {
     const [count, setCount] = useState(0)
     const [apiData, setApiData] = useState("");

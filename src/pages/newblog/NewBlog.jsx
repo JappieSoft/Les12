@@ -1,9 +1,11 @@
 import "./NewBlog.css";
 import {useForm} from "react-hook-form";
-import {useNavigate} from "react-router-dom";
-import {useEffect} from "react";
+import {Link} from "react-router-dom";
+import {useEffect, useState} from "react";
 import {timeStamp} from "../../helpers/dateConverter.js";
 import readTimer from "../../helpers/readTimer.js";
+import {pushNumberOne} from "../../helpers/apiScripts.js";
+import {ArrowCircleRightIcon} from "@phosphor-icons/react";
 
 
 /*temp text:
@@ -12,72 +14,87 @@ import readTimer from "../../helpers/readTimer.js";
 
 
 function NewBlog() {
-    const navigate = useNavigate();
-    const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+    const {register, handleSubmit, setValue, formState: {errors}} = useForm();
+    const [apiData, setApiData] = useState("0");
+    const [error, setError] = useState("");
+    const [loading, toggleLoading] = useState(false);
+
 
     useEffect(() => {
         register("created");
         register("readTime");
         register("comments");
         register("shares");
-        }, [register]);
+    }, [register]);
 
 
     const onSubmit = (data) => {
-        setValue("created", timeStamp());
-        setValue("readTime", readTimer(data.content));
-        setValue("comments", 0);
-        setValue("shares", 0);
-        console.log(data);
-        navigate("/overzicht");
+        const standardizedData = {
+        ...data,
+        created: timeStamp(),
+        readTime: readTimer(data.content),
+        comments: 0,
+        shares: 0,
+        }
+        pushNumberOne(standardizedData, setError, setApiData, toggleLoading);
     };
 
 
     return (
         <div className="page-container">
-            <h2>Begin hier met het maken van jouw nieuwe blog-post!</h2>
-
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="form-control">
-                    <label>Titel</label>
-                    <input
-                        type="text"
-                        name="title"
-                        {...register("title",{ required: true })}/>
-                        {errors.title && <p className="errorMsg">{"Er is een titel nodig."}</p>}
+            {loading && <p>Post versturen...</p>}
+            {apiData?.id > 0 &&
+                <div className="page-container">
+                    <h2>De blogpost is succesvol toegevoegd.</h2>
+                    <Link className="post-link" to={`/post/${apiData.id}`}>Je kunt deze hier bekijken<ArrowCircleRightIcon size={26}/></Link>
+                </div>}
+            {apiData.length > 0 &&
+                <div className="page-container">
+                    <h2>Begin hier met het maken van jouw nieuwe blog-post!</h2>
+                    {error && <h2 className="error">{error}</h2>}
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <div className="form-control">
+                            <label>Titel</label>
+                            <input
+                                type="text"
+                                name="title"
+                                {...register("title", {required: true})}/>
+                            {errors.title && <p className="errorMsg">{"Er is een titel nodig."}</p>}
+                        </div>
+                        <div className="form-control">
+                            <label>Ondertitel</label>
+                            <input
+                                type="text"
+                                name="subtitle"
+                                {...register("subtitle", {required: true})}/>
+                            {errors.subtitle && <p className="errorMsg">{"Een ondertitel is nodig."}</p>}
+                        </div>
+                        <div className="form-control">
+                            <label>Auteur</label>
+                            <input
+                                type="text"
+                                name="author"
+                                {...register("author", {required: true})}/>
+                            {errors.author && <p className="errorMsg">{"De naam van de auteur mag niet ontbreken."}</p>}
+                        </div>
+                        <div className="form-control">
+                            <label>Blogpost</label>
+                            <textarea
+                                name="content"
+                                minLength={300}
+                                maxLength={2000}
+                                rows={10}
+                                cols={40}
+                                {...register("content", {required: true})}/>
+                            {errors.content && <p className="errorMsg">{"Een verhaal / tekst is nodig."}</p>}
+                        </div>
+                        <div className="form-control">
+                            <label></label>
+                            <button type="submit">Create Blogpost</button>
+                        </div>
+                    </form>
                 </div>
-                <div className="form-control">
-                    <label>Ondertitel</label>
-                    <input
-                        type="text"
-                        name="subtitle"
-                        {...register("subtitle",{ required: true })}/>
-                        {errors.subtitle && <p className="errorMsg">{"Een ondertitel is nodig."}</p>}
-                    </div>
-                <div className="form-control">
-                    <label>Auteur</label>
-                    <input
-                        type="text"
-                        name="author"
-                        {...register("author", { required: true })}/>
-                        {errors.author && <p className="errorMsg">{"De naam van de auteur mag niet ontbreken."}</p>}
-                </div>
-                <div className="form-control">
-                    <label>Blogpost</label>
-                    <textarea
-                        name="content"
-                        minLength={300}
-                        maxLength={2000}
-                        rows={10}
-                        cols={40}
-                        {...register("content",{ required: true })}/>
-                        {errors.content && <p className="errorMsg">{"Een verhaal / tekst is nodig."}</p>}
-                </div>
-                <div className="form-control">
-                    <label></label>
-                    <button type="submit">Create Blogpost</button>
-                </div>
-            </form>
+            }
         </div>
     )
         ;

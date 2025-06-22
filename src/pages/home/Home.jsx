@@ -5,7 +5,7 @@ function Home() {
     return (
         <div className="page-container">
             <img src={logo} alt="Company logo"/>
-            <h1>Welcome Home!</h1>
+            <h1>Welcome!</h1>
         </div>
     );
 }
