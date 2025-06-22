@@ -78,140 +78,23 @@ export async function pushNumberOne(dataPush, setError, setApiData, toggleLoadin
 }
 
 /*---api delete 1.5 ------------------------------------------------------------------------------------------------------*/
-export async function deleteNumberOne() {
-    const [count, setCount] = useState(0)
-    const [apiData, setApiData] = useState("");
-    const [error, setError] = useState("");
-    const [loading, toggleLoading] = useState(false);
-    const dataPush = {
-        "title": "Wat gebruiker heeft ingevuld",
-        "subtitle": "Wat gebruiker heeft ingevuld",
-        "content": "Wat gebruiker heeft ingevuld, in dit geval minder dan 100 woorden",
-        "author": "Voornaam achternaam",
-        "created": "2023-09-21T09:30:00Z",
-        "readTime": 1,
-        "comments": 0,
-        "shares": 0
-    };
-
-
+export async function deleteNumberOne(requestId, setError, setApiData, toggleLoading) {
     setError("");
     toggleLoading(true);
-    setCount((count) => count + 1)
 
     try {
-        const response = await axios.delete(
-            "https://novi-backend-api-wgsgz.ondigitalocean.app/api/blogposts/21",
-            {
-                headers: {
-                    "novi-education-project-id": "e7334bb5-32f1-462b-a9d0-349bb821c0ba"
-                }
-            }
-        );
+        const response = await axios.delete(`${apiLink}/${requestId}`, {
+            headers: apiHeaders,
+        });
         console.log(response);
+        setApiData(response);
     } catch (event) {
         console.error(event);
-        setError("Delete Error or Impossible");
+        setError("Er is wat fout gegaan met verwijderen!");
     } finally {
         toggleLoading(false);
     }
 }
 
-/*---api put 1.6 ------------------------------------------------------------------------------------------------------*/
-export async function putNumberOne() {
-    const [count, setCount] = useState(0)
-    const [apiData, setApiData] = useState("");
-    const [error, setError] = useState("");
-    const [loading, toggleLoading] = useState(false);
-    const dataPush = {
-        "title": "Wat gebruiker heeft ingevuld",
-        "subtitle": "Wat gebruiker heeft ingevuld",
-        "content": "Wat gebruiker heeft ingevuld, in dit geval minder dan 100 woorden",
-        "author": "Voornaam achternaam",
-        "created": "2023-09-21T09:30:00Z",
-        "readTime": 1,
-        "comments": 0,
-        "shares": 0
-    };
-
-
-    setError("");
-    toggleLoading(true);
-    setCount((count) => count + 1)
-
-    try {
-        const response = await axios.put(
-            "https://novi-backend-api-wgsgz.ondigitalocean.app/api/blogposts/27",
-            {
-                id: "27",
-                title: "Wat is anders?",
-                subtitle: "Wat heeft de gebruiker ingevuld",
-                content: "Wat gebruiker heeft ingevuld, in dit geval minder dan 100 woorden maar nu toch een paar meer",
-                created: "2023-09-21T19:31:22Z",
-                author: "Achternaam voornaam",
-                readTime: 55,
-                comments: 783264832,
-                shares: 9876233286,
-            },
-            {
-                headers: {
-                    "novi-education-project-id": "e7334bb5-32f1-462b-a9d0-349bb821c0ba"
-                }
-            }
-        );
-        console.log(response);
-    } catch (event) {
-        console.error(event);
-        setError("Put Error");
-    } finally {
-        toggleLoading(false);
-    }
-}
-
-/*---api patch 1.7 ------------------------------------------------------------------------------------------------------*/
-export async function patchNumberOne() {
-    const [count, setCount] = useState(0)
-    const [apiData, setApiData] = useState("");
-    const [error, setError] = useState("");
-    const [loading, toggleLoading] = useState(false);
-    const dataPush = {
-        "title": "Wat gebruiker heeft ingevuld",
-        "subtitle": "Wat gebruiker heeft ingevuld",
-        "content": "Wat gebruiker heeft ingevuld, in dit geval minder dan 100 woorden",
-        "author": "Voornaam achternaam",
-        "created": "2023-09-21T09:30:00Z",
-        "readTime": 1,
-        "comments": 0,
-        "shares": 0
-    };
-
-
-    setError("");
-    toggleLoading(true);
-    setCount((count) => count + 1)
-
-    try {
-        const response = await axios.patch(
-            "https://novi-backend-api-wgsgz.ondigitalocean.app/api/blogposts/27",
-            {
-                id: "27",
-                title: "Weer iets anders?"
-            },
-            {
-                headers: {
-                    "novi-education-project-id": "e7334bb5-32f1-462b-a9d0-349bb821c0ba"
-                }
-            }
-        );
-        console.log(response);
-    } catch (event) {
-        console.error(event);
-        setError("Patch Error");
-    } finally {
-        toggleLoading(false);
-    }
-}
-
-
-/*---end of api pull"s ------------------------------------------------------------------------------------------------------*/
+/*---end of api actions ------------------------------------------------------------------------------------------------------*/
 export default pullHelperApi;
