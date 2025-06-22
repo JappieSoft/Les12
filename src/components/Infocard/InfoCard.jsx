@@ -1,4 +1,4 @@
-import './InfoCard.css';
+import "./InfoCard.css";
 import { NavLink } from "react-router-dom";
 
 function InfoCard({blogId, title, author, comments, shares}) {
