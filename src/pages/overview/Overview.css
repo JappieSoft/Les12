@@ -1,0 +1,26 @@
+.list-view {
+    display: flex;
+    width: 800px;
+    flex-direction: column;
+    list-style: none;
+    column-gap: 50px;
+    overflow-y: auto;
+}
+
+/* Deze versie is voor oa Chrome */
+.list-view::-webkit-scrollbar {
+    display: none;
+}
+
+/* Deze versie is voor oa internet exploror & firefox */
+.list-view {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.list-item {
+        border: 2px solid var(--color-tertiary);
+        margin: 5px;
+        padding: 5px;
+        box-shadow: 10px 10px 25px 1px rgba(0, 0, 0, 0.5);
+}

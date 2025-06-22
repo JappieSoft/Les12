@@ -1,0 +1,9 @@
+.list-link {
+    text-decoration: none;
+    color: var(--color-white);
+}
+
+.list-link:hover {
+    text-decoration: none;
+    color: var(--color-dutch);
+}

@@ -1,0 +1,23 @@
+.data-content {
+    line-height: 1.5;
+    max-width: 800px;
+    text-align: center;
+}
+
+.post-link {
+    display: flex;
+    text-decoration: none;
+    color: var(--color-white);
+    justify-content: center;
+}
+
+.post-link:hover {
+    text-decoration: none;
+    color: var(--color-dutch);
+}
+
+.link-space {
+    display: flex;
+    justify-content: flex-end;
+    gap: 5rem;
+}

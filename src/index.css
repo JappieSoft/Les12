@@ -5,6 +5,7 @@
   --color-secondary: #2C2F39;
   --color-tertiary: #50535C;
   --color-white: #FFFFFF;
+  --color-dutch: #FFEBC6;
 }
 
 * {
@@ -54,4 +55,9 @@ h4 {
 
 p {
   margin-block: 0.5em;
+}
+
+.error {
+  color: red;
+  text-align: center;
 }
